@@ -1,0 +1,747 @@
+/* ============================================
+   EASTER PRANK — style.css
+   Person B owns this entire file
+   ============================================ */
+
+/* ── Reset & Base ── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Georgia', serif;
+}
+
+/* ── Screen System ── */
+.screen {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+/* ── Temp Test Buttons (Person A removes these) ── */
+.temp-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.3);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+/* ============================================
+   SCREEN 1 — Landing
+   ============================================ */
+
+#screen1 {
+  background: linear-gradient(
+    160deg,
+    #a8edbe 0%,
+    #7dd8f0 40%,
+    #f9e4b7 100%
+  );
+}
+
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 30px;
+  gap: 24px;
+}
+
+.easter-emoji {
+  font-size: 90px;
+  animation: floatBounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+}
+
+@keyframes floatBounce {
+  0%   { transform: translateY(0px) rotate(0deg); }
+  50%  { transform: translateY(-18px) rotate(5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.landing-container h1 {
+  font-size: 22px;
+  color: #4a3728;
+  line-height: 1.5;
+  max-width: 300px;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+}
+
+.landing-container h1 span {
+  color: #d94f3d;
+  font-style: italic;
+}
+
+#tap-to-open {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 18px 48px;
+  border-radius: 50px;
+  font-size: 20px;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.45);
+  animation: pulse 1.8s ease-in-out infinite;
+  transition: transform 0.1s;
+}
+
+#tap-to-open:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1);    box-shadow: 0 6px 20px rgba(255,107,107,0.45); }
+  50%  { transform: scale(1.06); box-shadow: 0 10px 28px rgba(255,107,107,0.6); }
+  100% { transform: scale(1);    box-shadow: 0 6px 20px rgba(255,107,107,0.45); }
+}
+
+/* decorative flowers on screen 1 */
+.flower {
+  position: absolute;
+  font-size: 32px;
+  opacity: 0.5;
+  animation: sway 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.flower:nth-child(1) { top: 8%;  left: 6%;  animation-delay: 0s; }
+.flower:nth-child(2) { top: 12%; right: 8%; animation-delay: 0.5s; }
+.flower:nth-child(3) { bottom: 14%; left: 10%; animation-delay: 1s; }
+.flower:nth-child(4) { bottom: 10%; right: 6%; animation-delay: 1.5s; }
+
+@keyframes sway {
+  from { transform: rotate(-8deg) scale(1); }
+  to   { transform: rotate(8deg)  scale(1.1); }
+}
+
+/* ============================================
+   SCREEN 2 — Egg Fall Game
+   ============================================ */
+
+#screen2 {
+  background: linear-gradient(
+    180deg,
+    #87CEEB 0%,
+    #b8e4f5 55%,
+    #c8f0a0 80%,
+    #7ec850 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+/* clouds */
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 50px;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.cloud::before {
+  content: '';
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  width: 60%;
+  height: 180%;
+  top: -60%;
+  left: 15%;
+}
+
+.cloud::after {
+  content: '';
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  width: 40%;
+  height: 140%;
+  top: -40%;
+  right: 15%;
+}
+
+/* grass strip at bottom */
+.grass {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: #5cb85c;
+  border-radius: 55% 55% 0 0 / 25px 25px 0 0;
+  z-index: 10;
+}
+
+.grass::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: #6cc96c;
+  border-radius: 50%;
+}
+
+/* hint text at top of game */
+.hint-text {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(4px);
+  padding: 8px 22px;
+  border-radius: 30px;
+  font-size: 15px;
+  color: #444;
+  white-space: nowrap;
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* ── Egg Styles ── */
+/* Person A creates .egg divs via JS — you style them here */
+
+.egg {
+  width: 55px;
+  height: 70px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  position: absolute;
+  cursor: pointer;
+  z-index: 15;
+  animation: eggWobble 0.6s ease-in-out infinite alternate;
+  transition: transform 0.1s;
+  box-shadow:
+    inset -5px -5px 10px rgba(0,0,0,0.12),
+    inset 3px 3px 8px rgba(255,255,255,0.4);
+}
+
+.egg:active {
+  transform: scale(0.88);
+}
+
+@keyframes eggWobble {
+  from { transform: rotate(-4deg); }
+  to   { transform: rotate(4deg); }
+}
+
+/* 5 egg color variants — Person A assigns these classes randomly */
+.egg-pink {
+  background: radial-gradient(circle at 35% 35%, #ffb3d1, #ff6b9d);
+  border: 3px dashed #ff1493;
+}
+
+.egg-yellow {
+  background: radial-gradient(circle at 35% 35%, #fff176, #ffd93d);
+  border: 3px dotted #ffa500;
+}
+
+.egg-green {
+  background: radial-gradient(circle at 35% 35%, #a5d6a7, #6bcb77);
+  border: 3px solid #2d6a4f;
+}
+
+.egg-blue {
+  background: radial-gradient(circle at 35% 35%, #90caf9, #4d96ff);
+  border: 3px dashed #1a4fff;
+}
+
+.egg-purple {
+  background: radial-gradient(circle at 35% 35%, #ce93d8, #ab47bc);
+  border: 3px dotted #7b1fa2;
+}
+
+/* egg crack animation — triggered by Person A on tap */
+.egg.cracking {
+  animation: eggCrack 0.3 ease-out forwards;
+}
+
+@keyframes eggCrack {
+  0%   { transform: scale(1) rotate(0deg); opacity: 1; }
+  40%  { transform: scale(1.4) rotate(15deg); opacity: 1; }
+  100% { transform: scale(0) rotate(30deg); opacity: 0; }
+}
+
+/* splat when egg hits ground */
+.egg-splat {
+  position: absolute;
+  font-size: 28px;
+  z-index: 11;
+  animation: splatFade 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes splatFade {
+  0%   { transform: scale(0.5); opacity: 1; }
+  60%  { transform: scale(1.3); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* confetti pieces — Person A spawns these on egg tap */
+.confetti-piece {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 50;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(320px) rotate(720deg); opacity: 0; }
+}
+
+/* ============================================
+   SCREEN 3 — Prize Loading
+   ============================================ */
+
+#screen3 {
+  background: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 100%
+  );
+}
+
+/* floating stars background feel */
+#screen3::before {
+  content: '✨ 🌟 ⭐ ✨ 🌟 ✨ ⭐';
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  opacity: 0.25;
+  letter-spacing: 16px;
+  pointer-events: none;
+}
+
+.prize-container {
+  background: white;
+  border-radius: 28px;
+  padding: 40px 32px;
+  text-align: center;
+  width: 88%;
+  max-width: 380px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.gift-emoji {
+  font-size: 72px;
+  display: block;
+  animation: giftShake 0.5s ease-in-out infinite;
+}
+
+@keyframes giftShake {
+  0%   { transform: rotate(0deg); }
+  20%  { transform: rotate(-10deg); }
+  40%  { transform: rotate(10deg); }
+  60%  { transform: rotate(-6deg); }
+  80%  { transform: rotate(6deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.prize-container h2 {
+  font-size: 20px;
+  color: #333;
+  margin: 16px 0 24px;
+  line-height: 1.4;
+}
+
+/* loading bar */
+.loading-bar-wrapper {
+  background: #eee;
+  border-radius: 50px;
+  height: 22px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.loading-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    #ff6b6b,
+    #ffd93d,
+    #6bcb77
+  );
+  border-radius: 50px;
+  transition: width 0.25s ease;
+  position: relative;
+}
+
+/* shimmer on loading bar */
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.4),
+    transparent
+  );
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  from { left: -60%; }
+  to   { left: 120%; }
+}
+
+.loading-status {
+  font-size: 14px;
+  color: #888;
+  min-height: 20px;
+  transition: opacity 0.3s;
+}
+
+.loading-percent {
+  font-size: 28px;
+  font-weight: bold;
+  color: #764ba2;
+  margin-top: 10px;
+}
+
+/* ============================================
+   SCREEN 4 — Husky Reveal / Prank
+   ============================================ */
+
+#screen4 {
+  background: #0f0f1a;
+  position: relative;
+  overflow: hidden;
+}
+
+/* confetti layer behind husky */
+#confetti-canvas {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.reveal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px 20px;
+  z-index: 2;
+  gap: 16px;
+}
+
+#husky-gif {
+  width: 260px;
+  max-width: 80vw;
+  border-radius: 24px;
+  border: 4px solid #ff6b6b;
+  animation: huskyZoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  box-shadow: 0 0 40px rgba(255,107,107,0.5);
+}
+
+@keyframes huskyZoomIn {
+  0%   { transform: scale(0) rotate(-10deg); opacity: 0; }
+  70%  { transform: scale(1.1) rotate(3deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg);   opacity: 1; }
+}
+
+.prank-text {
+  font-size: 34px;
+  color: white;
+  text-shadow: 0 0 20px rgba(255,107,107,0.8);
+  animation: textFlash 0.8s ease-in-out 0.5s both;
+}
+
+@keyframes textFlash {
+  0%   { opacity: 0; transform: scale(0.7); }
+  50%  { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.from-text {
+  font-size: 16px;
+  color: #aaa;
+  animation: fadeInUp 0.5s ease 1s both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#okay-btn {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+  margin-top: 8px;
+  box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+  animation: fadeInUp 0.5s ease 5s both;
+  transition: transform 0.1s;
+}
+
+#okay-btn:active {
+  transform: scale(0.95);
+}
+
+/* screen flash effect — Person A triggers this class */
+#screen4.flash {
+  animation: screenFlash 0.3s ease;
+}
+
+@keyframes screenFlash {
+  0%   { background: white; }
+  100% { background: #0f0f1a; }
+}
+
+/* ============================================
+   SCREEN 5 — Chain Forward
+   ============================================ */
+
+#screen5 {
+  background: linear-gradient(
+    160deg,
+    #ffecd2 0%,
+    #fcb69f 100%
+  );
+}
+
+.chain-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 36px 28px;
+  width: 90%;
+  max-width: 380px;
+  gap: 14px;
+}
+
+.chain-container h2 {
+  font-size: 24px;
+  color: #4a2c2a;
+  margin-bottom: 4px;
+}
+
+.chain-container p.sub {
+  font-size: 14px;
+  color: #7a5c5a;
+  margin-top: -8px;
+}
+
+.chain-container input {
+  width: 100%;
+  padding: 14px 22px;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 50px;
+  font-size: 16px;
+  font-family: 'Georgia', serif;
+  text-align: center;
+  outline: none;
+  background: white;
+  color: #333;
+  transition: border-color 0.2s;
+}
+
+.chain-container input:focus {
+  border-color: #ff6b6b;
+}
+
+#generate-btn {
+  width: 100%;
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-family: 'Georgia', serif;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255,107,107,0.4);
+  transition: transform 0.1s;
+}
+
+#generate-btn:active {
+  transform: scale(0.97);
+}
+
+/* generated link box */
+.link-box {
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  border: 2px dashed #ff6b6b;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+#generated-link {
+  font-size: 12px;
+  color: #666;
+  word-break: break-all;
+  background: #f9f9f9;
+  padding: 10px 14px;
+  border-radius: 12px;
+  width: 100%;
+  text-align: left;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+#copy-btn {
+  flex: 1;
+  background: #4d96ff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+#copy-btn:active {
+  transform: scale(0.95);
+}
+
+#whatsapp-btn {
+  flex: 1;
+  background: #25D366;
+  color: white;
+  padding: 12px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s;
+}
+
+#whatsapp-btn:active {
+  transform: scale(0.95);
+}
+
+.copied-msg {
+  font-size: 13px;
+  color: #25D366;
+  font-weight: bold;
+  display: none;
+}
+
+.copied-msg.show {
+  display: block;
+  animation: fadeInUp 0.3s ease;
+}
+
+/* ============================================
+   UTILITY — Responsive fixes for small phones
+   ============================================ */
+
+@media (max-width: 360px) {
+  .landing-container h1 { font-size: 19px; }
+  #tap-to-open { font-size: 17px; padding: 15px 36px; }
+  .prize-container { padding: 28px 20px; }
+  #husky-gif { width: 200px; }
+  .prank-text { font-size: 26px; }
+}
+
+
+.confetti-ribbon {
+  pointer-events: none;
+  z-index: 50;
+}
+.surprise-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-80px) scale(0);
+  white-space: nowrap;
+  font-family: 'Fredoka One', cursive;
+  font-size: 26px;
+  color: #fff;
+  background: #ff6b6b;
+  padding: 12px 28px;
+  border-radius: 50px;
+  pointer-events: none;
+  z-index: 100;
+  animation: surprisePop 3.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes surprisePop {
+  0%   { transform: translateX(-50%) translateY(-80px) scale(0); opacity: 0; }
+  15%  { transform: translateX(-50%) translateY(-80px) scale(1.1); opacity: 1; }
+  25%  { transform: translateX(-50%) translateY(-80px) scale(1);   opacity: 1; }
+  75%  { transform: translateX(-50%) translateY(-80px) scale(1);   opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-80px) scale(0.9); opacity: 0; }
+}
+
+@keyframes confettiBit {
+  0%   { transform: translateX(0) translateY(0) rotate(0deg) scaleY(1); opacity: 1; }
+  15%  { opacity: 1; }
+  85%  { opacity: 0.8; }
+  100% { transform: translateX(var(--dx)) translateY(var(--dy)) rotate(var(--rot)) scaleY(0.6); opacity: 0; }
+}
+
+@keyframes curlyFly {
+  0%   { transform: translateX(0) translateY(0) rotate(0deg) scale(0.3); opacity: 1; }
+  10%  { transform: translateX(calc(var(--dx)*0.1)) translateY(calc(var(--dy)*0.1)) rotate(calc(var(--rot)*0.1)) scale(1); opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateX(var(--dx)) translateY(var(--dy)) rotate(var(--rot)) scale(0.8); opacity: 0; }
+}
+
+.confetti-ribbon {
+  pointer-events: none;
+  z-index: 50;
+}

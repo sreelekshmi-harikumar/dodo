@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Easter Surprise 🐣</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Font — playful Easter feel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Confetti library (used by loading.js on Screen 4) -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- ================================================
+       SCREEN 1 — Landing
+       Person B owns ALL the HTML inside here
+  ================================================ -->
+  <div class="screen" id="screen-1">
+
+    <!-- decorative flowers — styled in style.css -->
+    <span class="flower">🌸</span>
+    <span class="flower">🌼</span>
+    <span class="flower">🌷</span>
+    <span class="flower">🌻</span>
+
+    <!-- "From / To" tag — shown only when URL has ?from=&to= -->
+    <!-- transitions.js fills and shows this automatically -->
+    <div id="from-tag" style="display:none"></div>
+
+    <div class="landing-container">
+      <div class="easter-emoji">🐣</div>
+
+      <!-- greeting text — transitions.js sets the name from URL -->
+      <h1 id="greeting-text">
+        Someone hid an Easter surprise
+        <span>just for you</span> 🥚
+      </h1>
+
+      <p class="landing-sub">Tap below to find out what's waiting...</p>
+
+      <!-- transitions.js listens to this button id="tap-btn" -->
+      <button id="tap-btn">Tap to Open 🥚</button>
+    </div>
+
+  </div>
+
+
+  <!-- ================================================
+       SCREEN 2 — Egg Falling Game
+       game.js draws and controls everything on the canvas
+       Person B only owns the hint text and grass div
+  ================================================ -->
+  <div class="screen" id="screen-2">
+
+    <!-- game.js draws the whole sky + sun + clouds + grass
+         onto this canvas — do NOT put anything behind it -->
+    <canvas id="egg-canvas"></canvas>
+
+    <!-- hint text floating on top of canvas -->
+    <p class="hint-text">Tap an egg to find your surprise 🥚</p>
+
+    <!-- confetti dots burst out here when egg is tapped -->
+    <!-- game.js looks for id="burst-container" -->
+    <div id="burst-container"></div>
+
+  </div>
+
+
+  <!-- ================================================
+       SCREEN 3 — Prize Loading
+       loading.js controls the bar via id="loading-bar",
+       id="loading-pct", id="loading-text"
+       Person B owns all the visual design here
+  ================================================ -->
+  <div class="screen" id="screen-3">
+
+    <div class="prize-container">
+
+      <div class="gift-emoji">🎁</div>
+
+      <h2>You found something special!</h2>
+
+      <!-- loading bar — loading.js fills this via style.width -->
+      <div class="loading-bar-wrapper">
+        <div class="loading-bar" id="loading-bar"></div>
+      </div>
+
+      <!-- percentage number — loading.js updates this -->
+      <p class="loading-percent" id="loading-pct">0%</p>
+
+      <!-- cycling status messages — loading.js updates this -->
+      <!-- add  transition: opacity 0.25s ease  to #loading-text in style.css -->
+      <p class="loading-status" id="loading-text">
+        Loading your prize...
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================
+       SCREEN 4 — Husky Prank Reveal
+       loading.js triggers this screen via triggerReveal()
+       Person B owns the design and layout
+  ================================================ -->
+  <div class="screen" id="screen-4">
+
+    <!-- confetti rains in here — loading.js spawns pieces -->
+    <!-- loading.js looks for id="confetti-container" -->
+    <div id="confetti-container"></div>
+
+    <div class="reveal-container">
+
+      <!-- replace husky.gif with your downloaded GIF file -->
+      <img
+        src="assets/husky.gif"
+        id="husky-gif"
+        alt="Surprise husky!"
+      />
+
+      <h1 class="prank-text">April Fools! 😂🐣</h1>
+
+      <!-- "from" name is read from URL by transitions.js
+           and stored as window.PRANK_FROM — we show it here -->
+      <p class="from-text">
+        That was from
+        <strong id="reveal-from-name"></strong> 💛
+      </p>
+
+      <!-- loading.js wires this button to go to Screen 5 -->
+      <!-- it looks for id="to-screen5" -->
+      <button id="to-screen5">Okay okay 😂</button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================
+       SCREEN 5 — Chain Forward  (Person B fully owns this)
+       The JS for link generation is inline below —
+       Person A does NOT touch this screen
+  ================================================ -->
+  <div class="screen" id="screen-5">
+
+    <div class="chain-container">
+
+      <h2>Now get YOUR friends 😈</h2>
+      <p class="sub">Generate your own prank link and send it!</p>
+
+      <!-- pre-fill "Your name" from the URL ?to= param
+           because the receiver becomes the new sender -->
+      <input
+        type="text"
+        id="your-name"
+        placeholder="Your name"
+        autocomplete="off"
+      />
+
+      <input
+        type="text"
+        id="friend-name"
+        placeholder="Your friend's name"
+        autocomplete="off"
+      />
+
+      <button id="generate-btn" onclick="generateLink()">
+        Generate Prank Link 🐣
+      </button>
+
+      <!-- hidden until link is generated -->
+      <div class="link-box" id="link-box" style="display:none">
+
+        <p id="generated-link"></p>
+
+        <div class="share-buttons">
+          <button id="copy-btn" onclick="copyLink()">
+            Copy Link 📋
+          </button>
+          <a id="whatsapp-btn" target="_blank">
+            WhatsApp 💬
+          </a>
+        </div>
+
+        <!-- shows briefly after copy -->
+        <p class="copied-msg" id="copied-msg">
+          ✅ Copied!
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================================================
+       Scripts — load order matters:
+       1. transitions.js first (defines showScreen)
+       2. game.js second    (defines initGame)
+       3. loading.js last   (defines startLoading, triggerReveal)
+  ================================================ -->
+  <script src="transitions.js"></script>
+  <script src="game.js"></script>
+  <script src="loading.js"></script>
+
+  <!-- Screen 5 link generator + small setup — Person B owns this -->
+  <script>
+    // Fill "Your name" input with the receiver's name from URL
+    // because they are now the sender
+    document.addEventListener('DOMContentLoaded', () => {
+      const yourNameInput = document.getElementById('your-name');
+      if (yourNameInput && window.PRANK_TO !== 'You') {
+        yourNameInput.value = window.PRANK_TO;
+      }
+
+      // Show the from-name on Screen 4
+      const revealFrom = document.getElementById('reveal-from-name');
+      if (revealFrom) {
+        revealFrom.textContent = window.PRANK_FROM;
+      }
+    });
+
+    // Generate shareable prank link
+    function generateLink() {
+      const from = document.getElementById('your-name').value.trim();
+      const to   = document.getElementById('friend-name').value.trim();
+
+      if (!from || !to) {
+        alert('Please enter both names! 😅');
+        return;
+      }
+
+      const base = window.location.origin + window.location.pathname;
+      const link = `${base}?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+      const msg  = `🐣 ${from} hid an Easter surprise just for you! Tap to open 👇\n${link}`;
+
+      document.getElementById('generated-link').textContent = link;
+      document.getElementById('link-box').style.display     = 'flex';
+
+      document.getElementById('whatsapp-btn').href =
+        `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    }
+
+    // Copy link to clipboard
+    function copyLink() {
+      const link = document.getElementById('generated-link').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        const msg = document.getElementById('copied-msg');
+        msg.classList.add('show');
+        setTimeout(() => msg.classList.remove('show'), 2000);
+      }).catch(() => {
+        // fallback for older phones
+        alert('Copy this link:\n' + link);
+      });
+    }
+  </script>
+
+</body>
+</html>
