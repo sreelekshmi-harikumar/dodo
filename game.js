@@ -22,6 +22,7 @@ let spawnTimer = null;
 let gameActive = false;
 let GROUND_Y   = 0;
 let focusedEgg = null;
+let missedCount = 0;
 
 // ------ Bunny System ----------------------------------------
 const BUNNY_MESSAGES = [
@@ -473,7 +474,15 @@ function gameLoop(){
       }
     }
     e.vy=Math.min(e.vy+e.acc,7.5); e.y+=e.vy; e.x+=e.vx; e.rotation+=e.rotSpeed;
-    if(e.y+36*e.scale>=GROUND_Y){playSound('splat');splats.push(createSplat(e.x,e.color));return false;}
+   
+    if (e.y + 36*e.scale >= GROUND_Y) {
+  playSound('splat');
+  splats.push(createSplat(e.x, e.color));
+  missedCount++;
+  const numEl = document.getElementById('missed-num');
+  if (numEl) numEl.textContent = missedCount;
+  return false;
+}
     drawEgg(e); return e.alive;
   });
   if(gameActive||focusedEgg||splats.length>0) requestAnimationFrame(gameLoop);
@@ -501,5 +510,12 @@ function initGame(){
   resize(); window.addEventListener('resize',resize);
   canvas.addEventListener('click',e=>handleTap(e.clientX,e.clientY));
   canvas.addEventListener('touchstart',e=>{e.preventDefault();handleTap(e.touches[0].clientX,e.touches[0].clientY);},{passive:false});
+  // create missed eggs counter
+const missedBox = document.createElement('div');
+missedBox.className = 'missed-eggs-container';
+missedBox.id = 'missed-box';
+missedBox.innerHTML = '🥚 Missed: <span class="missed-count" id="missed-num">0</span>';
+document.getElementById('screen-2').appendChild(missedBox);
+missedCount = 0;
   dramaticEntrance(); startBunnyScheduler(); gameLoop();
 }
