@@ -56,12 +56,12 @@ easter-prank/
 ├── loading.js          — loading bar, sound trigger, reveal  
 ├── transitions.js      — screen switching and URL param reading  
 └── assets/  
-    ├── husky.gif           — dancing prank gif  
-    ├── Baby_Rabbit.gif     — easter bunny encouragement gif  
-    ├── fahh.mp3            — surprise sound  
-    ├── crack.mp3           — egg crack sound  
-    ├── splat.mp3           — egg missed sound  
-    └── pop.mp3             — confetti pop sound  
+            ├── husky.gif           — dancing prank gif  
+            ├── Baby_Rabbit.gif     — easter bunny encouragement gif  
+            ├── fahh.mp3            — surprise sound  
+            ├── crack.mp3           — egg crack sound  
+            ├── splat.mp3           — egg missed sound  
+            └── pop.mp3             — confetti pop sound  
 
 ## 🔗 Sharing the Prank
 
