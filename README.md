@@ -50,8 +50,7 @@ They prank their own friends with a new personalized link
 
 ## Project Structure
 easter-prank/
-├── index.html          — all 5 screens
-
+├── index.html          — all 5 screens  
 ├── style.css           — all styling and animations
 ├── game.js             — egg game, grass, flowers, bunny system
 ├── loading.js          — loading bar, sound trigger, reveal
@@ -92,7 +91,7 @@ The site generates this automatically on the last screen — just enter the name
 
 | Person | Owns |
 |--------|------|
-| **Sreelekshmi Harikumar* | `game.js`, `loading.js`, `transitions.js` — game logic, screen switching, sound |
+| **Sreelekshmi Harikumar** | `game.js`, `loading.js`, `transitions.js` — game logic, screen switching, sound |
 | **Sree Lekshmi H** | `index.html`, `style.css` — UI design, animations, asset collection |
 
 ---
