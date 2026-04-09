@@ -49,13 +49,13 @@ They prank their own friends with a new personalized link
 - 💬 One-tap WhatsApp share with a pre-written message
 
 ## Project Structure
-easter-prank/
+easter-prank/  
 ├── index.html          — all 5 screens  
-├── style.css           — all styling and animations
-├── game.js             — egg game, grass, flowers, bunny system
-├── loading.js          — loading bar, sound trigger, reveal
-├── transitions.js      — screen switching and URL param reading
-└── assets/
+├── style.css           — all styling and animations  
+├── game.js             — egg game, grass, flowers, bunny system  
+├── loading.js          — loading bar, sound trigger, reveal  
+├── transitions.js      — screen switching and URL param reading  
+└── assets/  
     ├── husky.gif           — dancing prank gif
     ├── Baby_Rabbit.gif     — easter bunny encouragement gif
     ├── fahh.mp3            — surprise sound
