@@ -51,6 +51,7 @@ They prank their own friends with a new personalized link
 ## Project Structure
 easter-prank/
 ├── index.html          — all 5 screens
+
 ├── style.css           — all styling and animations
 ├── game.js             — egg game, grass, flowers, bunny system
 ├── loading.js          — loading bar, sound trigger, reveal
